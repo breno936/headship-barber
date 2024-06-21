@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.sqlite"
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  username String
+  password String
+}
+
+model Products{
+  id Int @id @default(autoincrement())
+  name String
+  price Decimal
+  description String
+  picture String
+}
+
+model SlideHome{
+  id Int @id @default(autoincrement())
+  picture String
+  title String
+  subTitle String
+  textButton String
+  linkButton String
+}
+
+model ProductsHome{
+  id Int @id @default(autoincrement())
+  name String
+  price Decimal
+  description String
+  picture String
+}
+
+model Schedules{
+  id Int @id @default(autoincrement())
+  active Boolean
+  weekDay String
+  monthDay Int
+  month Int
+  hours Hours[]
+  year Int
+} 
+
+model Hours{
+  id Int @id @default(autoincrement())
+  schedule Schedules @relation(fields: [scheduleId], references: [id])
+  scheduleId Int
+  active Boolean
+  hours String
+  schedulingId Scheduling?
+}
+
+model PortifolioHome{
+  id Int @id @default(autoincrement())
+  picture String
+  link String
+}
+
+model Services{
+ id Int @id @default(autoincrement())
+ name String
+ description String
+ price Decimal
+ picture String
+}
+
+model Portifolio{
+  id Int @id @default(autoincrement())
+  picture String
+  link String
+}
+
+model Scheduling{
+    id Int @id @default(autoincrement())
+    clientNumber String
+    hour Hours @relation(fields: [hourId], references: [id])
+    hourId Int @unique
+}
