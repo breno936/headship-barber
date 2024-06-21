@@ -6,8 +6,9 @@ dotenv.config();
 
 const { Twilio } = pkg;
 
-const accountSid = process.env.ACCOUNT_SID;
-const authToken = process.env.AUTH_TOKEN;
+const accountSid = process.env.TWILIO_ACCOUNT_SID || import.meta.env.VITE_TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN || import.meta.env.VITE_TWILIO_AUTH_TOKEN;
+const phoneNumber = process.env.TWILIO_PHONE_NUMBER || import.meta.env.VITE_TWILIO_PHONE_NUMBER;
 
 if (!accountSid || !authToken) {
     throw new Error('Twilio credentials are not set in the environment variables.');
@@ -28,7 +29,7 @@ export const POST: RequestHandler = async ({ request }) => {
     try {
         const messageInstance = await client.messages.create({
             body: message,
-            from: 'whatsapp:+14155238886', // Seu número Twilio
+            from: 'whatsapp:'+phoneNumber, // Seu número Twilio
             to: 'whatsapp:'+phoneTo
         });
 
