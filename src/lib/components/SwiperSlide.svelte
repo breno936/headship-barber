@@ -7,7 +7,7 @@
   onMount(async () => {
     register();
  // Carregar produtos quando a página é carregada
-    const resSlide = await fetch('https://headship-barber.vercel.app/api/slideHome');
+    const resSlide = await fetch('api/slideHome');
     const dataSlide = await resSlide.json();
     slides = dataSlide.slides;
     console.log(slides);

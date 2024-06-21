@@ -1,4 +1,9 @@
 <script lang="ts">
+/** @type {import('@sveltejs/adapter-vercel').Config} */
+export const config = {
+	runtime: 'edge'
+};
+
   import { onMount } from "svelte";
 
   let styleAspect = "aspect-video";
