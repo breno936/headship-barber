@@ -11,8 +11,8 @@
 		"lint": "eslint ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "next",
 		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-vercel": "next",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/bcrypt": "^5.0.2",
@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@prisma/client": "^5.15.1",
 		"@sveltejs/adapter-vercel": "^5.3.2",
+		"@vercel/postgres": "^0.8.0",
 		"bcrypt": "^5.1.1",
 		"bcryptjs": "^2.4.3",
 		"dotenv": "^16.4.5",
