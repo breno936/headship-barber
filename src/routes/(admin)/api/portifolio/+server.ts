@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ request }) => {
   }
 
   const buffer = Buffer.from(await picture.arrayBuffer());
-  const uploadPath = process.cwd() + '/static/uploads/'+Date.now()+"-"+picture.name;;
+  const uploadPath = "/static/uploads/"+Date.now()+"-"+picture.name;
 
     fs.writeFileSync(uploadPath, buffer);
 
