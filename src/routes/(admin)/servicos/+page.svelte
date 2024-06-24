@@ -50,7 +50,7 @@ console.log(picture);
 const res = await fetch('/api/servicos', {
   method: 'POST',
   body: formData,
-  headers: { "Content-Type": "application/json",
+  headers: { 
         'Authorization' : `Bearer ${token}`
        },
 });
