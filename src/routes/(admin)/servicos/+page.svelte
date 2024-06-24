@@ -80,6 +80,9 @@ const res = await fetch('/api/servicos', {
     const res = await fetch('/api/servicos', {
       method: 'PUT',
       body: formData,
+      headers: { 
+        'Authorization' : `Bearer ${token}`
+       },
     });
 
     if (res.ok) {
