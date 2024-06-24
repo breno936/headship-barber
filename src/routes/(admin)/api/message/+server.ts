@@ -17,7 +17,7 @@ if (!accountSid || !authToken) {
 const client = new Twilio(accountSid, authToken);
 
 export const POST: RequestHandler = async ({ request }) => {
-    console.log(client);
+    
     const { to, message } = await request.json();
 
     if (!to || !message) {
@@ -27,13 +27,19 @@ export const POST: RequestHandler = async ({ request }) => {
     phoneTo = "+55"+phoneTo
 
     try {
-        const messageInstance = await client.messages.create({
-            body: message,
-            from: 'whatsapp:'+phoneNumber, // Seu número Twilio
-            to: 'whatsapp:'+phoneTo
-        });
+    //    return await client.messages.create({
+    //         body: message,
+    //         from: 'whatsapp:'+phoneNumber, // Seu número Twilio
+    //         to: 'whatsapp:'+phoneTo
+    //     })
+    //     .then(message =>{
+    //         console.log(phoneTo, message);
+    //     });
+    const result = await fetch(`https://api.callmebot.com/whatsapp.php?phone=${phoneTo}&text=${message}&apikey=1777851
+`);
+    console.log(result);
+        return json({ success: true, sid: message.sid });  
 
-        return json({ success: true, sid: messageInstance.sid });
     } catch (error) {
         return json({ error: error.message }, { status: 500 });
     }

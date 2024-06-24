@@ -17,6 +17,11 @@ const options: IOptions = {
         let date = new Date(self.selectedDates[0]);
         let correctDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
         specificDay = [];
+
+        while (!correctDate.getDate()) {
+        await new Promise(resolve => setTimeout(resolve, 100)); // Aguarda 100ms antes de verificar novamente
+        }
+
       const res = await fetch(`api/schedule?monthDay=${correctDate.getDate()}`);
       const data = await res.json();
       if (data.schedules) {
@@ -71,15 +76,22 @@ function handleInput(event:any) {
 
   async function agendar(){
     clientNumber = clientNumber.replace(/\D/g, ''); 
+    
+    const params = new URLSearchParams({
+      hourId: hourId.toString(),
+    clientNumber: clientNumber
+  }).toString();
+
     const message = await fetch("api/message", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             to:clientNumber,
-            message:`link de cancelamento: https://headship.com.br/?clientNumber=${encodeURIComponent(clientNumber)}&hourId=${encodeURIComponent(hourId)}`,
+            message:`link de cancelamento: https://headship.com.br/?${params}`,
           }),
         });
         let a = await message.json();
+        console.log(a);
 
         const res = await fetch("api/scheduling", {
           method: "POST",
