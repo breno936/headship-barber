@@ -79,14 +79,25 @@ export const PUT: RequestHandler = async ({ request }) => {
 
     if(typeof picture == 'object'){
       const buffer = Buffer.from(await picture.arrayBuffer());
-      const uploadPath = path.join('static', 'uploads', `${Date.now()}-${picture.name}`);
+      const result: any = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: 'uploads' },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        );
     
-        fs.writeFileSync(uploadPath, buffer);
-    
-        filePath = `/uploads/${path.basename(uploadPath)}`;
+        // Send the buffer to Cloudinary
+        uploadStream.end(buffer);
+      });
   
     
       deleteImage(existingPortifolio.picture, token);
+      filePath = result.secure_url;
     }else{
       filePath = existingPortifolio?.picture;
     }
