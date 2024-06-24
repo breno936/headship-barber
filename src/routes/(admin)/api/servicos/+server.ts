@@ -82,14 +82,25 @@ export const PUT: RequestHandler = async ({ request }) => {
     
     if(typeof picture == 'object'){
       const buffer = Buffer.from(await picture.arrayBuffer());
-      const uploadPath = path.join('static', 'uploads', `${Date.now()}-${picture.name}`);
+      const result: any = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: 'uploads' },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        );
     
-        fs.writeFileSync(uploadPath, buffer);
-    
-        filePath = `/uploads/${path.basename(uploadPath)}`;
+        // Send the buffer to Cloudinary
+        uploadStream.end(buffer);
+      });
   
     
-      deleteImage(existingService.picture, token);
+      deleteImage(existingPortifolio.picture, token);
+      filePath = result.secure_url;
     }else{
       filePath = existingService?.picture;
     }
@@ -138,16 +149,42 @@ export const DELETE: RequestHandler = async ({ request }) => {
   }
 };
 
-function deleteImage(imagePath: string, token:string ) {
+function deleteImage(imagePath: string, token: string) {
   try {
-    if(token && verifyToken(token)){
-    const fullPath = path.join('static', imagePath);
-    fs.unlinkSync(fullPath);
-    console.log('Image deleted successfully');
-    }else{
-      
+    if (token && verifyToken(token)) {
+      // Excluir do Cloudinary
+      if (imagePath.startsWith('http')) {
+        // Extrair o public_id do URL do Cloudinary
+        const public_id = extractPublicIdFromUrl(imagePath);
+
+        // Excluir do Cloudinary pelo public_id
+        cloudinary.uploader.destroy(public_id, (error, result) => {
+          if (error) {
+            console.error('Error deleting image from Cloudinary:', error);
+          } else {
+            console.log('Image deleted from Cloudinary:', result);
+          }
+        });
+      }
+
+      // Excluir do sistema de arquivos local (opcional)
+      const fullPath = path.join('static', imagePath);
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+        console.log('Image deleted from local file system:', fullPath);
+      } else {
+        console.log('Image file does not exist:', fullPath);
+      }
+    } else {
+      console.log('Unauthorized access to delete image');
     }
   } catch (error) {
     console.error('Error deleting image:', error);
   }
+}
+
+// Função para extrair o public_id de um URL do Cloudinary
+function extractPublicIdFromUrl(imageUrl: string): string | null {
+  const matches = imageUrl.match(/\/upload\/([^/]+)/);
+  return matches ? matches[1] : null;
 }
