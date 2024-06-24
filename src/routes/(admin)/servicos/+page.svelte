@@ -130,7 +130,7 @@ const res = await fetch('/api/servicos', {
                 </button>
           </form>
         </div>
-      <h3 class="font-bold text-3xl mb-10">{message} Produto</h3>
+      <h3 class="font-bold text-3xl mb-10">{message} Serviço</h3>
       <form class="w-fit" on:submit={metodoModal}>
           <input type="file" on:change={handleFileChange} class="file-input file-input-bordered file-input-sm w-full max-w-xs" />
           <input type="text" bind:value={name} placeholder="Nome" class="input input-bordered w-full max-w-xs mt-4" />

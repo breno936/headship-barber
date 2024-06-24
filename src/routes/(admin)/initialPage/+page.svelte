@@ -485,7 +485,7 @@ let token:string;
 
   <div class="flex relative">
     <button class="btn btn-outline btn-accent ml-auto mr-8 mt-8" on:click={() => {document.getElementById('my_modal_2')?.showModal();
-        message = "Novo";
+        message = "Editar";
         metodoModal = createProduct;
     }}>Adicionar</button>
     </div>
@@ -499,7 +499,7 @@ let token:string;
                   </button>
             </form>
           </div>
-        <h3 class="font-bold text-3xl mb-10">{message} Produto</h3>
+        <h3 class="font-bold text-3xl mb-10">{message} Slide</h3>
         <form class="w-fit" on:submit={metodoModal}>
             <input type="file" on:change={handleFileChange} class="file-input file-input-bordered file-input-sm w-full max-w-xs" />
             <input type="text" bind:value={name} placeholder="Nome" class="input input-bordered w-full max-w-xs mt-4" />
