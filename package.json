@@ -41,6 +41,7 @@
 		"@vercel/postgres": "^0.8.0",
 		"bcrypt": "^5.1.1",
 		"bcryptjs": "^2.4.3",
+		"cloudinary": "^2.2.0",
 		"dotenv": "^16.4.5",
 		"jsonwebtoken": "^9.0.2",
 		"svelte-preprocess": "^6.0.0",
