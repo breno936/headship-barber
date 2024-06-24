@@ -136,16 +136,42 @@ export const DELETE: RequestHandler = async ({ request }) => {
 };
 
 
-function deleteImage(imagePath: string, token:string ) {
+export function deleteImage(imagePath: string, token: string) {
   try {
-    if(token && verifyToken(token)){
-    const fullPath = path.join('static', imagePath);
-    fs.unlinkSync(fullPath);
-    console.log('Image deleted successfully');
-    }else{
-      
+    if (token && verifyToken(token)) {
+      // Excluir do Cloudinary
+      if (imagePath.startsWith('http')) {
+        // Extrair o public_id do URL do Cloudinary
+        const public_id = extractPublicIdFromUrl(imagePath);
+
+        // Excluir do Cloudinary pelo public_id
+        cloudinary.uploader.destroy(public_id, (error, result) => {
+          if (error) {
+            console.error('Error deleting image from Cloudinary:', error);
+          } else {
+            console.log('Image deleted from Cloudinary:', result);
+          }
+        });
+      }
+
+      // Excluir do sistema de arquivos local (opcional)
+      const fullPath = path.join('static', imagePath);
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+        console.log('Image deleted from local file system:', fullPath);
+      } else {
+        console.log('Image file does not exist:', fullPath);
+      }
+    } else {
+      console.log('Unauthorized access to delete image');
     }
   } catch (error) {
     console.error('Error deleting image:', error);
   }
+}
+
+// Função para extrair o public_id de um URL do Cloudinary
+function extractPublicIdFromUrl(imageUrl: string): string | null {
+  const matches = imageUrl.match(/\/upload\/([^/]+)/);
+  return matches ? matches[1] : null;
 }

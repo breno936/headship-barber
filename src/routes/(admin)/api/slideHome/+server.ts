@@ -3,7 +3,13 @@ import type { RequestHandler } from '@sveltejs/kit';
 import path from 'path';
 import fs from 'fs';
 import { verifyToken } from '$lib/server/jwt';
+import {v2 as cloudinary} from 'cloudinary';
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 export const POST: RequestHandler = async ({ request }) => {
 
@@ -23,15 +29,25 @@ const token = request.headers.get('Authorization');
   }
 
   const buffer = Buffer.from(await picture.arrayBuffer());
-  const uploadPath = path.join('static', 'uploads', `${Date.now()}-${picture.name}`);
+  const result: any = await new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: 'uploads' },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
 
-    fs.writeFileSync(uploadPath, buffer);
-
-    const filePath = `/uploads/${path.basename(uploadPath)}`;
+    // Send the buffer to Cloudinary
+    uploadStream.end(buffer);
+  });
 
     
   const newSlideHome = await prisma.slideHome.create({
-    data: {  linkButton, picture:filePath, subTitle, textButton, title}
+    data: {  linkButton, picture:result.secure_url, subTitle, textButton, title}
 
   });
 
