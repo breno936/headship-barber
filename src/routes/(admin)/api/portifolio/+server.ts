@@ -136,7 +136,7 @@ export const DELETE: RequestHandler = async ({ request }) => {
 };
 
 
-export function deleteImage(imagePath: string, token: string) {
+function deleteImage(imagePath: string, token: string) {
   try {
     if (token && verifyToken(token)) {
       // Excluir do Cloudinary
