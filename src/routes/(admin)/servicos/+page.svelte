@@ -10,9 +10,9 @@ let services: Services[] = [];
 let id: number | null = null;
 let metodoModal = null;
 let message:String = "";
-
+let token:string;
   onMount(async () => {
-    const token = localStorage.getItem("token");
+    token = localStorage.getItem("token");
 
     const resToken = await fetch("api/tokenAuth", {
       method: "POST",
@@ -50,6 +50,9 @@ console.log(picture);
 const res = await fetch('/api/servicos', {
   method: 'POST',
   body: formData,
+  headers: { "Content-Type": "application/json",
+        'Authorization' : `Bearer ${token}`
+       },
 });
 
     if (res.ok) {
