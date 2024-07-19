@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ request }) => {
         return json({ error: 'Missing "to" or "message" in request body' }, { status: 400 });
     }
     let phoneTo = to.replace(/\D/g, ''); 
-    phoneTo = "+55"+phoneTo
+    phoneTo = "55"+phoneTo
 
     try {
     //    return await client.messages.create({
@@ -35,9 +35,16 @@ export const POST: RequestHandler = async ({ request }) => {
     //     .then(message =>{
     //         console.log(phoneTo, message);
     //     });
-    const result = await fetch(`https://api.callmebot.com/whatsapp.php?phone=${phoneTo}&text=${message}&apikey=1777851
-`);
-    console.log(result);
+    const messageReturn = await fetch("http://ec2-18-230-151-53.sa-east-1.compute.amazonaws.com:3000/api/sendText", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            "chatId": phoneTo+"@c.us",
+            "text": message,
+            "session": "default"
+          }),
+      });
+    console.log(messageReturn);
         return json({ success: true, sid: message.sid });  
 
     } catch (error) {

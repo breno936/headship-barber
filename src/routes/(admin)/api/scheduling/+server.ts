@@ -100,19 +100,21 @@ export const PUT: RequestHandler = async ({ request }) => {
 };
 
 // Handler para excluir um produto
-export const DELETE: RequestHandler = async ({ request }) => {
+export const DELETE: RequestHandler = async ({ url }) => {
   try {
-    const token = request.headers.get('Authorization');
-    if(token && verifyToken(token)){
-    const { id } = await request.json();
-    await prisma.schedules.delete({
-      where: { id }
+    
+    // const token = request.headers.get('Authorization');
+    // if(token && verifyToken(token)){
+    const hourId = Number(url.searchParams.get('hourId'));
+
+    await prisma.scheduling.delete({
+      where: {hourId}
     });
     return new Response(JSON.stringify({ message: 'Product deleted' }), { status: 200 });
-  }else{
-    return new Response(JSON.stringify({ message: 'Não autorizado' }), { status: 401 });
+  // }else{
+  //   return new Response(JSON.stringify({ message: 'Não autorizado' }), { status: 401 });
 
-  }
+  // }
   } catch (error) {
     console.error('Error deleting schedule:', error);
     return new Response(JSON.stringify({ error: 'Failed to delete schedule' }), { status: 500 });

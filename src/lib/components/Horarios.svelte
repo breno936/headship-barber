@@ -79,7 +79,6 @@ function handleInput(event:any) {
     
     const params = new URLSearchParams({
       hourId: hourId.toString(),
-    clientNumber: clientNumber
   }).toString();
 
     const message = await fetch("api/message", {
@@ -87,7 +86,7 @@ function handleInput(event:any) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             to:clientNumber,
-            message:`link de cancelamento: https://headship.com.br/?${params}`,
+            message:`link de cancelamento: https://headship-barber.vercel.app/?${params}`,
           }),
         });
         let a = await message.json();

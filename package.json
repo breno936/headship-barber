@@ -47,6 +47,7 @@
 		"svelte-preprocess": "^6.0.0",
 		"swiper": "^11.1.4",
 		"twilio": "^5.2.0",
-		"vanilla-calendar-pro": "^2.9.6"
+		"vanilla-calendar-pro": "^2.9.6",
+		"wbm": "^1.1.16"
 	}
 }
