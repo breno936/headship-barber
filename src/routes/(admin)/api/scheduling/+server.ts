@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ request }) => {
       },
     });
 
-    if(desactiveHours?.active == true){
+    if(!existingNumber && desactiveHours?.active == true){
     // Cria um novo registro
     const newRegister = await prisma.scheduling.create({
       data: { 
@@ -37,7 +37,7 @@ export const POST: RequestHandler = async ({ request }) => {
     return new Response(JSON.stringify({ scheduling: newRegister }), { status: 200 });
 
   }
-  return new Response(JSON.stringify({ scheduling: "Horário indisponivel" }), { status: 200 });
+  return new Response(JSON.stringify({ scheduling: "Número já existe ou Horário indisponivel" }), { status: 200 });
 
 //return new Response(JSON.stringify({ schedules: existingSchedule }), { status: 201 });
 
@@ -100,15 +100,16 @@ export const PUT: RequestHandler = async ({ request }) => {
 };
 
 // Handler para excluir um produto
-export const DELETE: RequestHandler = async ({ url }) => {
+export const DELETE: RequestHandler = async ({ request }) => {
   try {
     
     // const token = request.headers.get('Authorization');
     // if(token && verifyToken(token)){
-    const hourId = Number(url.searchParams.get('hourId'));
-    console.log("aqui");
+    const { hourId } = await request.json();
+
+    let hourIdNumber = Number(hourId)
     await prisma.scheduling.delete({
-      where: {hourId}
+      where: {hourId:hourIdNumber}
     });
     return new Response(JSON.stringify({ message: 'Product deleted' }), { status: 200 });
   // }else{
