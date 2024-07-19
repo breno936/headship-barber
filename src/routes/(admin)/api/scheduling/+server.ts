@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ request }) => {
       },
     });
 
-    if(!existingNumber && desactiveHours?.active == true){
+    if(desactiveHours?.active == true){
     // Cria um novo registro
     const newRegister = await prisma.scheduling.create({
       data: { 
@@ -37,7 +37,7 @@ export const POST: RequestHandler = async ({ request }) => {
     return new Response(JSON.stringify({ scheduling: newRegister }), { status: 200 });
 
   }
-  return new Response(JSON.stringify({ scheduling: "Número já existe ou Horário indisponivel" }), { status: 200 });
+  return new Response(JSON.stringify({ scheduling: "Horário indisponivel" }), { status: 200 });
 
 //return new Response(JSON.stringify({ schedules: existingSchedule }), { status: 201 });
 
@@ -106,7 +106,7 @@ export const DELETE: RequestHandler = async ({ url }) => {
     // const token = request.headers.get('Authorization');
     // if(token && verifyToken(token)){
     const hourId = Number(url.searchParams.get('hourId'));
-
+    console.log("aqui");
     await prisma.scheduling.delete({
       where: {hourId}
     });
