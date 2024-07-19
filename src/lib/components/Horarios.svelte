@@ -86,7 +86,7 @@ function handleInput(event:any) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             to:clientNumber,
-            message:`link de cancelamento: https://headship-barber.vercel.app/cancelation/${params}`,
+            message:`https://headship-barber.vercel.app/cancelation/${hourId}`,
           }),
         });
         let a = await message.json();
