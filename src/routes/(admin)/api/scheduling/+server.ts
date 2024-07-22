@@ -17,12 +17,19 @@ export const POST: RequestHandler = async ({ request }) => {
       },
     });
 
-    if(!existingNumber && desactiveHours?.active == true){
+    if(desactiveHours?.active == true){
     // Cria um novo registro
     const newRegister = await prisma.scheduling.create({
       data: { 
         clientNumber,
         hourId,
+       },
+       include:{
+        hour:{
+          include:{
+            schedule:true
+          }
+        },
        }
     });
 

@@ -43,9 +43,16 @@ export const POST: RequestHandler = async ({ request }) => {
     uploadStream.end(buffer);
   });
 
-    
+       // Customize the transformation settings here
+       const optimizedUrl = cloudinary.url(result.public_id, {
+        transformation: [
+          { quality: 'auto:good' },
+          { fetch_format: 'webp' }
+        ]
+      });
+  
   const newService = await prisma.services.create({
-    data: {  description, name, picture:result.secure_url, price}
+    data: {  description, name, picture:optimizedUrl, price}
 
   });
   return new Response(JSON.stringify({ services: newService }), { status: 201 });
@@ -100,7 +107,16 @@ export const PUT: RequestHandler = async ({ request }) => {
   
     
       deleteImage(existingPortifolio.picture, token);
-      filePath = result.secure_url;
+
+   // Customize the transformation settings here
+   const optimizedUrl = cloudinary.url(result.public_id, {
+    transformation: [
+      { quality: 'auto:good' },
+      { fetch_format: 'webp' }
+    ]
+  });
+
+      filePath = optimizedUrl;
     }else{
       filePath = existingService?.picture;
     }

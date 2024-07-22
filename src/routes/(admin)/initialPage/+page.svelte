@@ -30,6 +30,7 @@ let token:string;
         });
       
     if(resToken.status == 401){
+      console.log("a");
       goto("/login");
     }
 
@@ -96,6 +97,7 @@ let token:string;
     if (res.ok) {
       const newSlide = await res.json();
       slideHome = [...slideHome, newSlide.slides];
+      document.getElementById("buttonClose")?.click();
       name = '';
       description = '';
       price = 0.0;
@@ -133,6 +135,8 @@ let token:string;
     if (res.ok) {
         const updatedSlide = await res.json();
         slideHome = slideHome.map(s => s.id === updatedSlide.slides.id ? updatedSlide.slides : s);
+        document.getElementById("buttonClose")?.click();
+
         name = '';
       description = '';
       price = 0.0;
@@ -186,6 +190,8 @@ let token:string;
     if (res.ok) {
       const newProduct = await res.json();
       productsHome = [...productsHome, newProduct.product];
+      document.getElementById("buttonClose")?.click();
+
       name = '';
       description = '';
       price = 0.0;
@@ -223,6 +229,8 @@ let token:string;
     if (res.ok) {
         const updatedProduct = await res.json();
         productsHome = productsHome.map(product => product.id === updatedProduct.product.id ? updatedProduct.product : product);
+        document.getElementById("buttonClose")?.click();
+
         name = '';
       description = '';
       price = 0.0;
@@ -274,6 +282,8 @@ let token:string;
     if (res.ok) {
       const newPortifolio = await res.json();
       portifolioHome = [...portifolioHome, newPortifolio.portifolio];
+      document.getElementById("buttonClose")?.click();
+
       name = '';
       description = '';
       price = 0.0;
@@ -311,6 +321,8 @@ let token:string;
           ? updatedPortifolio.portifolio
           : p
       );
+      document.getElementById("buttonClose")?.click();
+
       name = '';
       description = '';
       price = 0.0;
@@ -363,7 +375,7 @@ let token:string;
     <div class="modal-box text-center pt-8">
       <div class="modal-action absolute block top-0 right-5">
           <form method="dialog">
-              <button class="btn btn-circle btn-outline min-h-0 h-6 w-6">
+              <button id="buttonClose" class="btn btn-circle btn-outline min-h-0 h-6 w-6">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
           </form>

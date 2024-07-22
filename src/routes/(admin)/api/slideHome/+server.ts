@@ -45,9 +45,17 @@ const token = request.headers.get('Authorization');
     uploadStream.end(buffer);
   });
 
-    
+       // Customize the transformation settings here
+       const optimizedUrl = cloudinary.url(result.public_id, {
+        transformation: [
+          { quality: 'auto:good' },
+          { fetch_format: 'webp' }
+        ]
+      });
+  
+      
   const newSlideHome = await prisma.slideHome.create({
-    data: {  linkButton, picture:result.secure_url, subTitle, textButton, title}
+    data: {  linkButton, picture:optimizedUrl, subTitle, textButton, title}
 
   });
 
@@ -111,7 +119,17 @@ export const PUT: RequestHandler = async ({ request }) => {
   
     
       deleteImage(existingPortifolio.picture, token);
-      filePath = result.secure_url;
+
+   // Customize the transformation settings here
+   const optimizedUrl = cloudinary.url(result.public_id, {
+    transformation: [
+      { quality: 'auto:good' },
+      { fetch_format: 'webp' }
+    ]
+  });
+
+
+      filePath = optimizedUrl;
     }else{
       filePath = existingSlideHome?.picture;
     }

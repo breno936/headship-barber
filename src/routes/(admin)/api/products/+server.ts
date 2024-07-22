@@ -43,9 +43,17 @@ export const POST: RequestHandler = async ({ request }) => {
     uploadStream.end(buffer);
   });
 
+     // Customize the transformation settings here
+     const optimizedUrl = cloudinary.url(result.public_id, {
+      transformation: [
+        { quality: 'auto:good' },
+        { fetch_format: 'webp' }
+      ]
+    });
+
     
   const newProduct = await prisma.products.create({
-    data: { name, description, price, picture:result.secure_url }
+    data: { name, description, price, picture:optimizedUrl }
 
   });
   return new Response(JSON.stringify({ product: newProduct }), { status: 201 });
@@ -102,7 +110,17 @@ export const PUT: RequestHandler = async ({ request }) => {
   
     
       deleteImage(existingPortifolio.picture, token);
-      filePath = result.secure_url;
+
+         // Customize the transformation settings here
+    const optimizedUrl = cloudinary.url(result.public_id, {
+      transformation: [
+        { quality: 'auto:good' },
+        { fetch_format: 'webp' }
+      ]
+    });
+
+
+      filePath = optimizedUrl;
     }else{
       filePath = existingProduct?.picture;
     }

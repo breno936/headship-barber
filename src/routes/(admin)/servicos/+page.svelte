@@ -58,6 +58,8 @@ const res = await fetch('/api/servicos', {
     if (res.ok) {
       const newService = await res.json();
       services = [...services, newService.services];
+      document.getElementById("buttonClose")?.click();
+
       name = '';
       description = '';
       price = 0.0;
@@ -88,6 +90,8 @@ const res = await fetch('/api/servicos', {
     if (res.ok) {
         const updatedService = await res.json();
         services = services.map(s => s.id === updatedService.services.id ? updatedService.services : s);
+        document.getElementById("buttonClose")?.click();
+
       name = '';
       description = '';
       price = 0.0;
@@ -98,8 +102,12 @@ const res = await fetch('/api/servicos', {
   async function deleteService() {
     const res = await fetch('api/servicos', {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id })
+      headers: { 'Content-Type': 'application/json',
+      'Authorization' : `Bearer ${token}`
+
+       },
+      body: JSON.stringify({ id }),
+      
     });
 
     if (res.ok) {
@@ -131,7 +139,7 @@ const res = await fetch('/api/servicos', {
     <div class="modal-box text-center pt-8">
       <div class="modal-action absolute block top-0 right-5">
           <form method="dialog">
-              <button class="btn btn-circle btn-outline min-h-0 h-6 w-6">
+              <button id="buttonClose" class="btn btn-circle btn-outline min-h-0 h-6 w-6">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
           </form>
