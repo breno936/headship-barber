@@ -203,16 +203,16 @@ export const DELETE: RequestHandler = async ({ request }) => {
     if(token && verifyToken(token)){
 
     const { id } = await request.json();
-    await prisma.schedules.delete({
+    await prisma.hours.delete({
       where: { id }
     });
-    return new Response(JSON.stringify({ message: 'Product deleted' }), { status: 200 });
+    return new Response(JSON.stringify({ message: 'Hours deleted' }), { status: 200 });
     }else{
       return new Response(JSON.stringify({ message: 'Não autorizado' }), { status: 401 });
 
     }
   } catch (error) {
-    console.error('Error deleting schedule:', error);
-    return new Response(JSON.stringify({ error: 'Failed to delete schedule' }), { status: 500 });
+    console.error('Error deleting hours:', error);
+    return new Response(JSON.stringify({ error: 'Failed to delete hours' }), { status: 500 });
   }
 };
