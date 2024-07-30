@@ -23,7 +23,7 @@ model User{
 model Products{
   id Int @id @default(autoincrement())
   name String
-  price Decimal
+  price Decimal @default(0.00)
   description String
   picture String
 }
@@ -40,7 +40,7 @@ model SlideHome{
 model ProductsHome{
   id Int @id @default(autoincrement())
   name String
-  price Decimal
+  price Decimal @default(0.00)
   description String
   picture String
 }
@@ -74,7 +74,7 @@ model Services{
  id Int @id @default(autoincrement())
  name String
  description String
- price Decimal
+ price Decimal @default(0.00)
  picture String
 }
 

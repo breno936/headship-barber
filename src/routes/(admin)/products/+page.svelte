@@ -166,7 +166,7 @@ if(resToken.status == 401){
         <input type="file" on:change={handleFileChange} class="file-input file-input-bordered file-input-sm w-full max-w-xs" />
         <input type="text" bind:value={name} placeholder="Nome" class="input input-bordered w-full max-w-xs mt-4" />
         <input type="number" bind:value={price} placeholder="Preço" step="0.01" class="input input-bordered w-full max-w-xs mt-4" />
-        <input type="text" bind:value={description} placeholder="Description" class="input input-bordered w-full max-w-xs mt-4" />
+        <input type="text" bind:value={description} placeholder="Descrição" class="input input-bordered w-full max-w-xs mt-4" />
         <button class="btn btn-success w-full max-w-xs mt-8" type="submit">Cadastrar</button>
 
     </form>

@@ -4,6 +4,7 @@ import fs from 'fs';
 import type { RequestHandler } from '@sveltejs/kit';
 import { verifyToken } from '$lib/server/jwt';
 import {v2 as cloudinary} from 'cloudinary';
+import { Decimal } from '@prisma/client/runtime/library';
 
 
 cloudinary.config({
@@ -20,7 +21,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const picture = data.get('picture') as File;
   const name = data.get('name') as string;
   const description = data.get('description') as string;
-  const price = Number(data.get('price') as string);
+  const price = data.get('price') as string;
 
   if (!picture) {
     return new Response('No file uploaded', { status: 400 });
@@ -53,7 +54,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     
   const newProduct = await prisma.products.create({
-    data: { name, description, price, picture:optimizedUrl }
+    data: { name, description, price: new Decimal(price).toFixed(2), picture:optimizedUrl }
 
   });
   return new Response(JSON.stringify({ product: newProduct }), { status: 201 });
