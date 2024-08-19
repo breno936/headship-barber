@@ -103,7 +103,6 @@
       <ul class="flex justify-evenly">
         <li class="md:mr-4 lg:mr-7"><a href="/">HOME</a></li>
         <li class="md:mr-4 lg:mr-7"><a href="/portifolio">PORTIFÓLIO</a></li>
-        <li class="lg:mr-7"><a href="/#servicos">SERVIÇOS</a></li>
       </ul>
     </nav>
     <div class="bg-black w-auto md:w-40 h-full">
@@ -116,8 +115,9 @@
     </div>
     <nav class="hidden md:block ml-10">
       <ul class="flex">
-        <li class="lg:ml-7"><a href="/#agenda">AGENDA</a></li>
-        <li class="md:ml-4 lg:ml-7">A HEADSHIP</li>
+        <!-- <li class="lg:ml-7"><a href="/#agenda">AGENDA</a></li> -->
+        <!-- <li class="md:ml-4 lg:ml-7">A HEADSHIP</li> -->
+        <li class="md:ml-4 lg:ml-7"><a href="/#servicos">SERVIÇOS</a></li>
         <li class="md:ml-4 lg:ml-7"><a href="/shop">SHOP</a></li>
       </ul>
     </nav>
@@ -150,9 +150,10 @@
       <ul class="flex justify-evenly">
         <li class="mr-7"><a href="/">HOME</a></li>
         <li class="mr-7"><a href="/portifolio">PORTIFÓLIO</a></li>
+        <!-- <li class="mr-7"><a href="/#servicos">SERVIÇOS</a></li> -->
+        <!-- <li class="mr-7"><a href="/#agenda">AGENDA</a></li> -->
+        <!-- <li class="mr-7">A HEADSHIP</li> -->
         <li class="mr-7"><a href="/#servicos">SERVIÇOS</a></li>
-        <li class="mr-7"><a href="/#agenda">AGENDA</a></li>
-        <li class="mr-7">A HEADSHIP</li>
         <li class="mr-7"><a href="/shop">SHOP</a></li>
 
       </ul>
@@ -171,9 +172,10 @@
       <li class=""><a href="/">HOME</a></li>
       <li class="mt-4"><a href="/portifolio">PORTIFÓLIO</a></li>
       <li class="mt-4"><a href="#servicos">SERVIÇOS</a></li>
-      <li class="mt-4"><a href="#agenda">AGENDA</a></li>
-      <li class="mt-4">A HEADSHIP</li>
-      <li class="mt-4">SHOP</li>
+      <!-- <li class="mt-4"><a href="#agenda">AGENDA</a></li> -->
+      <!-- <li class="mt-4">A HEADSHIP</li> -->
+      <li class="mt-4"><a href="#servicos">SERVIÇOS</a></li>
+      <li class="mt-4"> <a href="/shop">SHOP</a></li>
     </ul>
   </nav>
   </div>

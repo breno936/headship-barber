@@ -10,7 +10,7 @@ import Horarios from "$components/Horarios.svelte";
 </script>
 
   <SwiperSlide/>
-  <Horarios/>
+  <!-- <Horarios/> -->
   <Servicos/>
   <About/>
   <Products/>

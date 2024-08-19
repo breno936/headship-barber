@@ -62,14 +62,37 @@
         {#each $cartProducts as product (product.id) }
         <li class="flex flex-row items-center"><a class="font-medium w-fit"><img class="rounded-2xl w-12 h-12" src="{product.picture}"/>{product.name}<span class="ml-1 font-normal">{product.quantity}<span class="text-[10px]">X</span></span></a><a class="text-center h-fit w-fit" on:click={() => deleteProduct(product.id)}>X</a></li>
         {/each}
+        {#if $cartProducts.length > 0}
         <form class="text-center w-full absolute bottom-6">
-        <!-- <input on:input={handleInput} bind:value={clientNumber} type="text" placeholder="Type here" class="input input-ghost ml-auto mr-auto relative block text-center block mb-4" style=""/> -->
-        <button on:click={enviarWhats} class="py-2 px-4 xl:px-10 border border-[#183A5D] text-[#183A5D] rounded-xl font-bold transition-all ml-auto mr-auto block" style="">ENVIAR</button>
-    </form>
+          <!-- <input on:input={handleInput} bind:value={clientNumber} type="text" placeholder="Type here" class="input input-ghost ml-auto mr-auto relative block text-center block mb-4" style=""/> -->
+          <button on:click={enviarWhats} class="py-2 px-4 xl:px-10 border border-[#183A5D] text-[#183A5D] rounded-xl font-bold transition-all ml-auto mr-auto block" style="">ENVIAR</button>
+       </form>
+       {:else}
+       <p class="ml-auto mr-auto mt-8">Carrrinho vazio</p>
+        {/if}
+ 
       </ul>
 
     </div>
   </div>
+
+
+  <div role="alert" id="alertAdd" class="transition-all alert alert-success fixed w-1/4 right-5 z-50 -top-48">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 shrink-0 stroke-current"
+      fill="none"
+      viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>Adicionado ao carrinho!</span>
+  </div>
+
+
 <slot></slot>
 
 <style>
