@@ -174,8 +174,7 @@
       <li class="mt-4"><a href="#servicos">SERVIÇOS</a></li>
       <!-- <li class="mt-4"><a href="#agenda">AGENDA</a></li> -->
       <!-- <li class="mt-4">A HEADSHIP</li> -->
-      <li class="mt-4"><a href="#servicos">SERVIÇOS</a></li>
-      <li class="mt-4"> <a href="/shop">SHOP</a></li>
+      <li class="mt-4"><a href="/shop">SHOP</a></li>
     </ul>
   </nav>
   </div>
